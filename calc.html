@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Calculator</title>
+</head>
+<body>
+<div className="App-calculator"> 
+    <button id="9" value="9" className="square" onClick=updateDisplay(this.value)>9</button>
+    <button id="8" value="8" className="square" onClick=updateDisplay(this.value)>8</button>  
+    <button id="7" value="7" className="square" onClick=updateDisplay(this.value)>7</button>  
+    <button id="6" value="6" className="square" onClick=updateDisplay(this.value)>6</button>  
+    <button id="5" value="5" className="square" onClick=updateDisplay(this.value)>5</button>  
+    <button id="4" value="4" className="square" onClick=updateDisplay(this.value)>4</button>  
+    <button id="3" value="3" className="square" onClick=updateDisplay(this.value)>3</button>  
+    <button id="2" value="2" className="square" onClick=updateDisplay(this.value)>2</button>  
+    <button id="1" value="1" className="square" onClick=updateDisplay(this.value)>1</button>  
+    <button id="0" value="0" className="square" onClick=updateDisplay(this.value)>0</button>  
+    <button id="+" value="+" className="square" onClick=addNumbers(this.value)>+</button>  
+    <button id="-" value="-" className="square" onClick=subtractNumbers(this.value)>-</button>  
+    <button id="*" value="*" className="square" onClick=multiplyNumbers(this.value)>*</button>  
+    <button id="/" value="/" className="square" onClick=divideNumbers(this.value)>/</button>
+    <button id="." value="." className="square" onClick=updateDisplay(this.value)>.</button>
+    <button id="=" value="=" className="square" onClick=displayResult()>=</button>                    
+    <button id="AC" value="AC" className="square" onClick=clearDisplay()>AC</button>                    
+    <button id="C" value="C" className="square" onClick=clearDisplay()>C</button>                    
+    <display id ="numbers" value="0">0</display>
+</div>
+<script>
+
+var numOne;
+var numTwo;
+var initialDisplay = 0;
+var operatorHasBeenClicked = false;
+var currentOperation;
+var resultHasBeenDisplayed = false;
+
+function updateDisplay(num) {	
+	if(initialDisplay==0 ) {
+		document.getElementById('numbers').innerHTML = "";
+		if(+num != 0){
+			initialDisplay += 1;
+		}		
+	}
+	if(operatorHasBeenClicked==true){
+		document.getElementById('numbers').innerHTML = "";
+		operatorHasBeenClicked = false;
+	}
+	if(resultHasBeenDisplayed == true){
+		clearDisplay();
+	}		
+	document.getElementById('numbers').innerHTML += num;	
+}
+
+function addNumbers(num) {
+	if(resultHasBeenDisplayed == true){
+		clearDisplay();
+	}
+	if (operatorHasBeenClicked==false) {
+		numOne = document.getElementById('numbers').innerHTML;
+		document.getElementById('numbers').innerHTML = "";
+		document.getElementById('numbers').innerHTML += num;
+		operatorHasBeenClicked = true;
+		currentOperation = '+';
+	}
+	
+}
+
+function subtractNumbers(num) {
+	if(resultHasBeenDisplayed == true){
+		clearDisplay();
+	}
+	if (operatorHasBeenClicked==false) {
+		numOne = document.getElementById('numbers').innerHTML;
+		document.getElementById('numbers').innerHTML = "";
+		document.getElementById('numbers').innerHTML += num;
+		operatorHasBeenClicked = true;
+		currentOperation = '-';
+	}
+}
+
+function multiplyNumbers(num) {
+	if(resultHasBeenDisplayed){
+		clearDisplay();
+	}
+	if (operatorHasBeenClicked==false) {
+		numOne = document.getElementById('numbers').innerHTML;
+		document.getElementById('numbers').innerHTML = "";
+		document.getElementById('numbers').innerHTML += num;
+		operatorHasBeenClicked = true;
+		currentOperation = '*';
+	}
+}
+
+function divideNumbers(num) {
+	if(resultHasBeenDisplayed){
+		clearDisplay();
+	}
+	if (operatorHasBeenClicked==false) {
+		numOne = document.getElementById('numbers').innerHTML;
+		document.getElementById('numbers').innerHTML = "";
+		document.getElementById('numbers').innerHTML += num;
+		operatorHasBeenClicked = true;
+		currentOperation = '/';
+	}
+}
+
+function clearDisplay() {
+	numOne = 0;
+	numTwo = 0;
+	document.getElementById('numbers').innerHTML = "0";
+	initialDisplay = 0;
+}
+
+function displayResult(operation) {
+	resultHasBeenDisplayed = true;
+	initialDisplay = 0;
+	numTwo = document.getElementById('numbers').innerHTML;
+	document.getElementById('numbers').innerHTML = "";
+	switch(currentOperation){
+		case '+':
+			document.getElementById('numbers').innerHTML = +numOne + +numTwo;
+			break;
+		case '-':
+			document.getElementById('numbers').innerHTML = +numOne - +numTwo;
+			break;
+		case '*':
+			document.getElementById('numbers').innerHTML = +numOne * +numTwo;
+			break;
+		case '/':
+			document.getElementById('numbers').innerHTML = +numOne / +numTwo;
+			break;
+	}
+}
+
+</script>
+
+</body>
+</html>
